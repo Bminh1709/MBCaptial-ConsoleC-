@@ -1,0 +1,8 @@
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\bin\Debug\MBCapital.exe.config
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\bin\Debug\MBCapital.exe
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\bin\Debug\MBCapital.pdb
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\obj\Debug\MBCapital.csproj.AssemblyReference.cache
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\obj\Debug\MBCapital.csproj.SuggestedBindingRedirects.cache
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\obj\Debug\MBCapital.csproj.CoreCompileInputs.cache
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\obj\Debug\MBCapital.exe
+D:\Learning-IT\Advanced Programming\ASM2\Code\MBCapital\MBCapital\obj\Debug\MBCapital.pdb
