@@ -22,23 +22,28 @@ namespace MBCapital.Pages
         {
             while (true)
             {
-                Console.WriteLine("============================================");
-                Console.WriteLine($"** WELCOME BACK {investor.Name} **");
+                Console.WriteLine("============================");
+                Console.Write("** ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"WELCOME BACK {investor.Name}");
+                Console.ResetColor();
+                Console.WriteLine(" **");
                 Console.WriteLine("1. View Funds");
                 Console.WriteLine("2. Place Order");
                 Console.WriteLine("3. Deposit Money");
                 Console.WriteLine("4. Withdraw Money");
                 Console.WriteLine("5. My Funds");
                 Console.WriteLine("6. Profile");
-                Console.WriteLine("7. Exit");
-                Console.WriteLine("============================================");
+                Console.WriteLine("7. Notifications");
+                Console.WriteLine("8. Exit");
+                Console.WriteLine("============================");
 
                 string input;
                 do
                 {
                     Console.Write("Enter your choice? ");
                     input = Console.ReadLine();
-                } while (!CheckValid.checkValidChoice(input, 1, 7));
+                } while (!CheckValid.CheckValidChoice(input, 1, 8));
 
                 switch (input)
                 {
@@ -56,15 +61,18 @@ namespace MBCapital.Pages
                             {
                                 Console.Write("Choose a ticket: ");
                                 ticket = Console.ReadLine();
-                            } while (!CheckValid.checkValidFund(ticket, fundService.GetFunds()));
+                            } while (!CheckValid.CheckValidFund(ticket, fundService.GetFunds()));
                             do
                             {
                                 Console.Write("Amount of money: ");
                                 money = Console.ReadLine();
-                            } while (!CheckValid.checkValidAmount(money));
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine(investor.PlaceOrder(fundService.GetFund(ticket), decimal.Parse(money)));
-                            Console.ResetColor();
+                            } while (!CheckValid.CheckValidAmount(money));
+                            if (money != "0")
+                            {
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine(investor.PlaceOrder(fundService.GetFund(ticket), decimal.Parse(money)));
+                                Console.ResetColor();
+                            }    
                         }
                         catch (Exception)
                         {
@@ -81,7 +89,7 @@ namespace MBCapital.Pages
                                 Console.Write("Amount of money: ");
                                 depositAmount = Console.ReadLine();
                             } while (!decimal.TryParse(depositAmount, out validDepositAmount));
-                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine(investor.Deposit(validDepositAmount));
                             Console.ResetColor();
                         }
@@ -100,7 +108,7 @@ namespace MBCapital.Pages
                                 Console.Write("Amount of money: ");
                                 withdrawAmount = Console.ReadLine();
                             } while (!decimal.TryParse(withdrawAmount, out validWithdrawAmount));
-                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.ForegroundColor = ConsoleColor.Cyan;
                             Console.WriteLine(investor.WithDraw(validWithdrawAmount));
                             Console.ResetColor();
                         }
@@ -115,8 +123,13 @@ namespace MBCapital.Pages
                         Console.ResetColor();
                         break;
                     case "6":
-                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine(investor.ToString());
+                        Console.ResetColor();
+                        break;
+                    case "7":
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(investor.DisplayMyNotifications());
                         Console.ResetColor();
                         break;
                     default:

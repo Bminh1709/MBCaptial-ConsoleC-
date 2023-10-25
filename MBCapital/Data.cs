@@ -18,15 +18,15 @@ namespace MBCapital
             FundService fundService = FundService.GetInstance();
 
             // Initialize some stockBrokers
-            StockBroker broker = new StockBroker("Thanh Thao", "t@gmail.com", "123");
-            StockBroker broker2 = new StockBroker("Khanh Quynh", "khanhquynh@gmail.com", "123");
+            StockBroker broker = new StockBroker("Thanh Thao", "thao@gmail.com", "123");
+            StockBroker broker2 = new StockBroker("Khanh Quynh", "quynh@gmail.com", "123");
 
             // Add brokers to Data Storage
             brokerService.AddBroker(broker);
             brokerService.AddBroker(broker2);
 
             // Initialize some Investors
-            investorService.AddInvestor(new Investor("Long", "long@", "123456", "12412", 20000, broker));
+            investorService.AddInvestor(new Investor("Long", "long@gmail.com", "123456", "12412", 20000, broker));
             investorService.AddInvestor(new Investor("Nghia", "nghia@gmail.com", "678910", "45743", 10000, broker));
             investorService.AddInvestor(new Investor("Thanh", "thanh@gmail.com", "234567", "23432", 500000, broker2));
 

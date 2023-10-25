@@ -24,20 +24,20 @@ namespace MBCapital.Pages
         {
             while (true)
             {
-                Console.WriteLine("============================================");
+                Console.WriteLine("============================");
                 Console.WriteLine($"** WELCOME BACK {broker.Name} **");
                 Console.WriteLine("1. View Funds");
-                Console.WriteLine("2. Manage Invester");
+                Console.WriteLine("2. Manage Investers");
                 Console.WriteLine("3. Notify");
                 Console.WriteLine("4. Exit");
-                Console.WriteLine("============================================");
+                Console.WriteLine("============================");
 
                 string input;
                 do
                 {
                     Console.Write("Enter your choice? ");
                     input = Console.ReadLine();
-                } while (!CheckValid.checkValidChoice(input, 1, 4));
+                } while (!CheckValid.CheckValidChoice(input, 1, 4));
 
                 switch (input)
                 {
@@ -60,7 +60,7 @@ namespace MBCapital.Pages
                             {
                                 Console.Write("Choose a ticket that changes: ");
                                 ticket = Console.ReadLine();
-                            } while (!CheckValid.checkValidFund(ticket, fundService.GetFunds()));
+                            } while (!CheckValid.CheckValidFund(ticket, fundService.GetFunds()));
                             do
                             {
                                 Console.WriteLine("Trend:");
@@ -68,8 +68,8 @@ namespace MBCapital.Pages
                                 Console.WriteLine("2) Decline");
                                 Console.Write("Choose a trend (1 or 2): ");
                                 trend = Console.ReadLine();
-                            } while (!CheckValid.checkValidChoice(trend, 1, 2));
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            } while (!CheckValid.CheckValidChoice(trend, 1, 2));
+                            Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Notifying:");
                             broker.MarketChange(fundService.GetFund(ticket), trend);
                             Console.ResetColor();

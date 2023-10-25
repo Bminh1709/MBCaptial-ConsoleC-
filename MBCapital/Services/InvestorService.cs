@@ -45,15 +45,20 @@ namespace MBCapital.Services
 
             return null;
         }
-        public Boolean AddInvestor(Investor investor)
+
+        public Boolean IsAccountExist(string gmail)
         {
             foreach (var item in investors)
             {
-                if (investor.Gmail == item.Gmail)
-                    return false;
+                if (gmail == item.Gmail)
+                    return true;
             }
+            return false;
+        }
+
+        public void AddInvestor(Investor investor)
+        {
             investors.Add(investor);
-            return true;
         }
     }
 }

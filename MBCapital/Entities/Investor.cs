@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -13,9 +14,10 @@ namespace MBCapital.Entities
         private string gmail;
         private string password;
         private string pin;
-        private decimal balance;
+        private decimal balance = 5;
         public StockBroker myStockBroker;
         public List<Fund> myFunds;
+        private List<Notification> myNotifications;
 
         public string Name
         {
@@ -69,7 +71,7 @@ namespace MBCapital.Entities
                 if (value >= 0)
                 {
                     balance = value;
-                }
+                } 
                 else
                 {
                     throw new ArgumentException("Balance cannot be negative.");
@@ -97,6 +99,10 @@ namespace MBCapital.Entities
                 Balance -= money;
                 return "Withdrawn $" + money + " Successfully. New balance: $" + Balance;
             }
+            else if (money <= 0)
+            {
+                return "The amount of money should be positive!";
+            }    
             else
             {
                 return "Please, you do not have enough money to withdraw!";
@@ -112,6 +118,18 @@ namespace MBCapital.Entities
             myStockBroker = stockBroker;
             myStockBroker.AddToZone(this);
             myFunds = new List<Fund>();
+            myNotifications = new List<Notification>();
+        }
+        public Investor(string name, string gmail, string password, string pin, StockBroker stockBroker)
+        {
+            Name = name;
+            Gmail = gmail;
+            Password = password;
+            Pin = pin;
+            myStockBroker = stockBroker;
+            myStockBroker.AddToZone(this);
+            myFunds = new List<Fund>();
+            myNotifications = new List<Notification>();
         }
 
         public string PlaceOrder(Fund fund, decimal money)
@@ -130,13 +148,13 @@ namespace MBCapital.Entities
                 Balance -= money;
                 myFunds.Add(myFund);
 
-                return "Remember to manage the fund regularly.";
+                return $"You have deposited ${money} into {fund.Ticket}. Congratulations!";
             }    
             else
             {
                 Balance -= money;
                 foundFund.Amount += money;
-                return "The money has been accumulated.";
+                return $"The money has been accumulated. {fund.Ticket}: ${money}";
             }    
         }
         
@@ -164,6 +182,32 @@ namespace MBCapital.Entities
             }
             return text;
         }
+
+        public string DisplayMyNotifications()
+        {
+            if (myNotifications.Count < 1)
+            {
+                return "Empty";
+            }
+            int count = 1;
+            string text;
+            text = "*) My Notifications \n";
+            text += String.Format("|{0,-28}|{1,-20}|{2,-20}|\n", "Date", "Message", "From");
+            foreach (var item in myNotifications)
+            {
+                if (myNotifications.Count() == count)
+                {
+                    text += String.Format("|{0,-28}|{1,-20}|{2,-20}|", item.DateReceive, item.Message, item.BrokerName);
+                }
+                else
+                {
+                    text += String.Format("|{0,-28}|{1,-20}|{2,-20}|\n", item.DateReceive, item.Message, item.BrokerName);
+                }
+                count++;
+            }
+            return text;
+        }
+
         public override string ToString()
         {
             return "=> Detail information\n" +
@@ -178,6 +222,7 @@ namespace MBCapital.Entities
         public override void Update(string ticket, string message)
         {
             Console.WriteLine($"{Name} got the news that {ticket} {message}");
+            myNotifications.Add(new Notification(DateTime.Now, $"{ ticket } { message}", myStockBroker.Name));
         }
     }
 }
