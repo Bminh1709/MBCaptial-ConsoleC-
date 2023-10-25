@@ -37,23 +37,27 @@ namespace MBCapital.Pages
                 Console.Write("PIN (exactly 5 characters): ");
                 string pin = Console.ReadLine();
 
-                Console.Write("Balance (greater than 0): ");
-                string balance = Console.ReadLine();
-
                 brokerService.DisplayBrokers();
                 int brokerNo = CheckValid.CheckValidBroker(brokerService.GetBrokers());
 
                 try
                 {
-                    Boolean checkCreateAccount = false;
-                    do
+                    Boolean isAccountExist = false;
+                    isAccountExist = investorService.IsAccountExist(gmail);
+                    if (isAccountExist) // Account Existed
                     {
-                        checkCreateAccount = investorService.AddInvestor(new Investor(name, gmail, password, pin, decimal.Parse(balance), brokerService.GetBroker(brokerNo)));
-                    } while (!checkCreateAccount);
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Create account successfully, please login!");
-                    Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("This account has been existed!");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Investor investor = new Investor(name, gmail, password, pin, brokerService.GetBroker(brokerNo));
+                        investorService.AddInvestor(investor);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Create account successfully, please login!");
+                        Console.ResetColor();
+                    }
                 }
                 catch (ArgumentException)
                 {

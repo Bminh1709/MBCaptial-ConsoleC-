@@ -10,17 +10,25 @@ namespace MBCapital.Helpers
 {
     public static class CheckValid
     {
-        public static Boolean checkValidChoice(string input, int min, int max)
+        public static Boolean CheckValidChoice(string input, int min, int max)
         {
             if (int.TryParse(input, out int command))
             {
                 if (command >= min && command <= max)
                     return true;
                 else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Please, enter a number ranging from {min} to {max}");
+                    Console.ResetColor();
                     return false;
+                }    
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"Please, enter a valid number");
+                Console.ResetColor();
                 return false;
             }
         }
@@ -44,19 +52,18 @@ namespace MBCapital.Helpers
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid number. Please enter a valid number of stockbroker.");
+                    Console.WriteLine("Invalid number. Please enter a valid number of stockbroker");
                     Console.ResetColor();
                 }
             }
-
             return selectedIndex - 1;
         }
 
-        public static Boolean checkValidAmount(string input)
+        public static Boolean CheckValidAmount(string input)
         {
             if (decimal.TryParse(input, out decimal money))
             {
-                if (money <= 0)
+                if (money < 0)
                     return false;
                 else
                     return true;
@@ -67,7 +74,7 @@ namespace MBCapital.Helpers
             }
         }
 
-        public static Boolean checkValidFund(string ticket, List<Fund> funds)
+        public static Boolean CheckValidFund(string ticket, List<Fund> funds)
         {
             foreach (var item in funds)
             {
@@ -76,6 +83,9 @@ namespace MBCapital.Helpers
                     return true;
                 }    
             }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid fund. Please enter a valid ticket of fund");
+            Console.ResetColor();
             return false;
         }
 

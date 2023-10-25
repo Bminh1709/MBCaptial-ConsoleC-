@@ -46,6 +46,7 @@
     <Compile Include="Data.cs" />
     <Compile Include="Entities\Fund.cs" />
     <Compile Include="Entities\Investor.cs" />
+    <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\StockBroker.cs" />
     <Compile Include="Helpers\CheckValid.cs" />
     <Compile Include="Observer.cs" />
